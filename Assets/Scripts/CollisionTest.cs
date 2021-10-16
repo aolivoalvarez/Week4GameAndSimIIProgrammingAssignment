@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CollisionTest : MonoBehaviour
 {
@@ -18,25 +19,17 @@ public class CollisionTest : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("COLLIDED WITH SOMETHING");
 
-        Debug.Log(collision.gameObject.name);
+        if (collision.gameObject.name == "Coin")
+        {
+            GameManager.instance.AddScore();
+            Destroy(collision.gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hit Trigger");
-
-        Debug.Log(other.gameObject.name);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        Debug.Log("Out of trigger");
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        Debug.Log("Staying in trigger");
+        Destroy(gameObject);
+        SceneManager.LoadScene(0);
     }
 }
